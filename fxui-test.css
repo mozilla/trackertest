@@ -1,0 +1,13 @@
+.test {
+  color: #080;
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid #080;
+  border-radius: 5px;
+  min-width: 250px;
+}
+
+.fail {
+  border-color: red;
+  color: red;
+}
