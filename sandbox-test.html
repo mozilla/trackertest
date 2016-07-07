@@ -26,6 +26,9 @@
         function navigate() {
           document.location = "https://github.com/mozilla/trackertest";
         }
+        function navigateTop() {
+          window.top.location = "https://github.com/mozilla/trackertest";
+        }
         function openNew() {
           window.open("https://github.com/mozilla/trackertest");
         }
@@ -42,6 +45,7 @@
       <button type="button" onclick="displayModal()">display a modal dialog</button><br><br>
 
       <button type="button" onclick="navigate()">document.location = trackertest repository</button><br><br>
+      <button type="button" onclick="navigateTop()">window.top.location = trackertest repository</button><br><br>
       <button type="button" onclick="openNew()">window.open() trackertest repository</button><br><br>
     </body>
 </html>
