@@ -1,0 +1,30 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <title>Tracker iframe test</title>
+  
+</head>
+<body>
+<h1>Tracker iframe test</h1>
+<ul>
+  <li>When a user visits a tracking site that includes an iframe to a 3rd-party,</li>
+  <li>and that 3rd-party iframe makes a request back to the 1st-party site in the parent frame
+    <ul>
+      <li>we should allow the request to mitigate breakage,
+        <ul>
+          <li>since the 1st-party already knows the user is on the 3rd-party site by virtue of the iframe.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<p>E.g., facebook games, etc.</p>
+
+<h2>You are on <span id="current-domain"></span>.</h2>
+<p id="operation"></p>
+<iframe id="the-iframe"></iframe>
+<h3>Check dev toolbox for security and/or error message.</h3>
+<script src="iframe-test.js"></script>
+</body>
+</html>
