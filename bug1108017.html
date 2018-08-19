@@ -5,7 +5,29 @@
         <title>Test page for bug 1108017</title>
     </head>
     <body>
-        <p>This is a test page for <a href="">bug 1108017</a>.</p>
+        <h1>Test page for <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1108017">bug 1108017</a></h1>
+        <p>To get started:</p>
+        <ul>
+            <li>Set <tt>privacy.trackingprotection.lower_network_priority</tt> to <tt>true</tt> in <tt>about:config</tt>.</li>
+            <li>Run <tt>export MOZ_LOG=nsChannelClassifier:3</tt> before starting Firefox in a terminal.</li>
+        </ul>
+        <p>Then ensure that in the debug log, you see something like:</p>
+        <pre>
+nsChannelClassifier[0x7fa4efb75100]: Enabling tracking protection checks on channel[0x7fa4f2f4a050] with uri https://itisatracker.org/green-tick.png for toplevel window uri https://itisatracker.org/
+nsChannelClassifier[0x7fa4efb75100]: Checking blacklist for uri=https://itisatracker.org/green-tick.png
+TrackingURICallback[0x7fa4efb75100]:OnClassifyComplete shouldEnableTrackingProtection=0, shouldEnableTrackingAnnnotation=1
+TrackingURICallback[0x7fa4efb75100]::OnBlacklistResult channel[0x7fa4f2f4a050] uri=https://itisatracker.org/green-tick.png, is in blacklist. Start checking whitelist.
+nsChannelClassifier[0x7fa4efb75100]: Looking for http://itisatracker.org/?resource=itisatracker.org in the whitelist (channel=0x7fa4f2f4a050)
+TrackingURICallback[0x7fa4efb75100]:OnClassifyComplete shouldEnableTrackingProtection=0, shouldEnableTrackingAnnnotation=1
+TrackingURICallback[0x7fa4efb75100]::OnWhitelistResult channel[0x7fa4f2f4a050] uri=https://itisatracker.org/green-tick.png, should not be whitelisted
+TrackingURICallback[0x7fa4efb75100]::OnTrackerFound, annotating channel[0x7fa4f2f4a050]
+nsChannelClassifier[0x7fa4efb75100]: Classifying principal https://itisatracker.org/green-tick.png on channel[0x7fa4f2f4a050]
+nsChannelClassifier::MarkEntryClassified[NS_OK] https://itisatracker.org/green-tick.png
+        </pre>
+        <p>without a line like this:</p>
+        <pre>
+Setting PRIORITY_LOWEST for channel[0x7f71d167e050] (https://itisatracker.org/green-tick.png)
+        </pre>
         <iframe src="https://mozilla.github.io/tracking-test/iframe-bug1108017.html"></iframe>
     </body>
 </html>
