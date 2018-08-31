@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html lang="en-US" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+      <p>Trying to set cookie with value:</p><pre id='cookie_set'></pre>
+      <p>Your current non-HTTPOnly cookies are:</p><pre id='cookie_read'></pre>
+      <script>
+        // Try to set a cookie
+        var randVal = Math.random();
+        var set = document.getElementById('cookie_set');
+        set.innerHTML = randVal;
+        document.cookie = 'testPageCookie='+randVal;
+
+        // Get a cookie
+        var get = document.getElementById('cookie_read');
+        var cookies = document.cookie;
+        get.innerHTML = cookies;
+      </script>
+    </body>
+</html>
