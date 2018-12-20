@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<script>
+    // Try to set a cookie
+    var randVal = Math.random();
+    var randVal2 = 'test_' + Math.random();
+    document.cookie = randVal2+'='+randVal;
+
+    if (getCookie(randVal2) == randVal) {
+        window.parent.postMessage('cookies', "*");
+    } else {
+        window.parent.postMessage('no_cookies', "*");
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+</script>
+</body>
+</html>
