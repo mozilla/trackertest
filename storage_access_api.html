@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en-US" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+      <h3>Cookie setting and getting</h3>
+      <button onclick='setAndGetCookie()'>Set and Get cookie via document.cookie</button><br />
+      <p>Trying to set cookie with value:</p><pre id='cookie_set'></pre>
+      <p>Your current non-HTTPOnly cookies are:</p><pre id='cookie_read'></pre>
+
+      <h3>document.requestStorageAccess</h3>
+      <button onclick='requestSA()'>Call document.requestStorageAccess()</button><br />
+      <p>Return value of requestStorageAccess():</p><pre id='request_storage_access'></pre><br />
+
+      <h3>document.hasStorageAccess</h3>
+      <button onclick='hasSA()'>Call document.hasStorageAccess()</button><br />
+      <p>Return value of hasStorageAccess():</p><pre id='has_storage_access'></pre><br />
+
+      <script>
+        function setAndGetCookie() {
+          // Try to set a cookie
+          var randVal = Math.random();
+          var set = document.getElementById('cookie_set');
+          set.innerHTML = randVal;
+          document.cookie = 'testPageCookie='+randVal;
+
+          // Get a cookie
+          var get = document.getElementById('cookie_read');
+          var cookies = document.cookie;
+          get.innerHTML = cookies;
+        }
+
+        function requestSA() {
+          var result = document.getElementById('request_storage_access');
+          document.requestStorageAccess().then(
+            () => {result.innerHTML = 'access granted'},
+            () => {result.innerHTML = 'access denied'}
+          );
+        }
+
+        function hasSA() {
+          var result = document.getElementById('has_storage_access');
+          document.hasStorageAccess().then(
+            (hasAccess) => {result.innerHTML = hasAccess},
+            (reason) => {result.innerHTML = 'promise rejected for reason' + reason}
+          );
+        }
+      </script>
+    </body>
+</html>
