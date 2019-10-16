@@ -3,10 +3,11 @@
   </head>
   <body>
     <p>The referrer accessible via `document.referrer` is:</p>
-    <pre id='referrer-result'></pre>
+    <div id='referrer-result'></div>
     <script>
-      var pre = document.getElementById('referrer-result');
-      pre.innerHTML = document.referrer;
+      var div = document.getElementById('referrer-result');
+      var text = document.createTextNode(document.referrer);
+      div.appendChild(text);
     </script>
   </body>
 </html>
