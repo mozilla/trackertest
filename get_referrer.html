@@ -1,0 +1,13 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <p>The referrer accessible via `document.referrer` is:</p>
+    <div id='referrer-result'></div>
+    <script>
+      var div = document.getElementById('referrer-result');
+      var text = document.createTextNode(document.referrer);
+      div.appendChild(text);
+    </script>
+  </body>
+</html>
