@@ -5,6 +5,9 @@
     <p>The referrer accessible via `document.referrer` is:</p>
     <div id='referrer-result'></div>
     <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        window.parent.postMessage(document.referrer, "https://senglehardt.com");
+      });
       var div = document.getElementById('referrer-result');
       var text = document.createTextNode(document.referrer);
       div.appendChild(text);
