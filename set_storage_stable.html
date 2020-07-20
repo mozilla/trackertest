@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html lang="en-US" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdn.jsdelivr.net/npm/idb-keyval@3/dist/idb-keyval-iife.min.js"></script>
+    </head>
+    <body>
+      <h4>cookies</h4>
+      <p id="cookie_message"></p>
+      <div id="set_cookie_message"><p>Trying to set cookie with value:</p><pre id='cookie_set'></pre></div>
+      <p>Your current non-HTTPOnly cookies are:</p><pre id='cookie_read'></pre>
+
+      <h4>localStorage</h4>
+      <p id="ls_message"></p>
+      <div id="set_ls_message"><p>Trying to set foo in localStorage to:</p><pre id='ls_set'></pre></div>
+      <p>Current localStorage</p><pre id='ls_read'></pre>
+
+      <h4>sessionStorage</h4>
+      <p id="ss_message"></p>
+      <div id="set_ss_message"><p>Trying to set foo in sessionStorage to:</p><pre id='ss_set'></pre></div>
+      <p>Current sessionStorage</p><pre id='ss_read'></pre>
+
+      <h4>Indexed DB</h4>
+      <p id="idb_message"></p>
+      <div id="set_idb_message"><p>Trying to set foo in indexedDB to:</p><pre id='idb_set'></pre></div>
+      <p>Current IndexedDB</p><pre id='idb_read'></pre>
+
+      <button onclick="setAllStorageLocations(false);">rerun</button>
+      <button onclick="setAllStorageLocations(true);">reset</button>
+      <script>
+        var newRandVal = Math.random();
+        function setCookies(reset=false) {
+          var cookies = document.cookie;
+          var msg = document.getElementById('cookie_message');
+          if (cookies === "" || reset === true) {
+            msg.innerHTML = 'Cookies not yet set, setting a new cookie...';
+            var set_message_div = document.getElementById('set_cookie_message');
+            set_message_div.style = "";
+
+            // Try to set a cookie
+            var set = document.getElementById('cookie_set');
+            set.innerHTML = newRandVal;
+            document.cookie = 'foo='+newRandVal+'; SameSite=None; Secure';
+
+            // Get a cookie
+            cookies = document.cookie;
+            var get = document.getElementById('cookie_read');
+            get.innerHTML = cookies;
+          } else {
+            msg.innerHTML = 'Cookies already set, NOT overwriting...';
+
+            var set_message_div = document.getElementById('set_cookie_message');
+            set_message_div.style = "display: none;";
+
+            var get = document.getElementById('cookie_read');
+            get.innerHTML = cookies;
+          }
+        }
+        function setLocalStorage(reset=false) {
+          var foo = window.localStorage.getItem('foo');
+          var msg = document.getElementById('ls_message');
+          if (foo === null || reset === true) {
+            msg.innerHTML = 'LocalStorage key foo not yet set...';
+            var set_message_div = document.getElementById('set_ls_message');
+            set_message_div.style = "";
+
+            // Set a new value for foo
+            var set = document.getElementById('ls_set');
+            set.innerHTML = newRandVal;
+            window.localStorage.setItem('foo', newRandVal);
+
+            // Get value of foo
+            foo = window.localStorage.getItem('foo');
+            var get = document.getElementById('ls_read');
+            get.innerHTML = 'foo='+foo;
+          } else {
+            msg.innerHTML = 'localStorage key foo already written, NOT overwriting...';
+            var set_message_div = document.getElementById('set_ls_message');
+            set_message_div.style = "display: none;";
+
+            var get = document.getElementById('ls_read');
+            get.innerHTML = 'foo='+foo;
+          }
+        }
+        function setSessionStorage(reset=false) {
+          var foo = window.sessionStorage.getItem('foo');
+          var msg = document.getElementById('ss_message');
+          if (foo === null || reset === true) {
+            msg.innerHTML = 'SessionStorage key foo not yet set...';
+            var set_message_div = document.getElementById('set_ss_message');
+            set_message_div.style = "";
+
+            // Set a new value for foo
+            var set = document.getElementById('ss_set');
+            set.innerHTML = newRandVal;
+            window.sessionStorage.setItem('foo', newRandVal);
+
+            // Get value of foo
+            foo = window.sessionStorage.getItem('foo');
+            var get = document.getElementById('ss_read');
+            get.innerHTML = 'foo='+foo;
+          } else {
+            msg.innerHTML = 'sessionStorage key foo already written, NOT overwriting...';
+            var set_message_div = document.getElementById('set_ss_message');
+            set_message_div.style = "display: none;";
+
+            var get = document.getElementById('ss_read');
+            get.innerHTML = 'foo='+foo;
+          }
+        }
+        async function setIndexedDB(reset) {
+          var foo = await idbKeyval.get('foo');
+          var msg = document.getElementById('idb_message');
+          if (foo === undefined || reset === true) {
+            msg.innerHTML = 'IndexedDB key foo not yet set...';
+            var set_message_div = document.getElementById('set_idb_message');
+            set_message_div.style = "";
+
+            // Set a new value for foo
+            var set = document.getElementById('idb_set');
+            set.innerHTML = newRandVal;
+            await idbKeyval.set('foo', newRandVal);
+
+            // Get value of foo
+            foo = await idbKeyval.get('foo');
+            var get = document.getElementById('idb_read');
+            get.innerHTML = 'foo='+foo;
+          } else {
+            msg.innerHTML = 'IndexedDB key foo already written, NOT overwriting...';
+            var set_message_div = document.getElementById('set_idb_message');
+            set_message_div.style = "display: none;";
+
+            var get = document.getElementById('idb_read');
+            get.innerHTML = 'foo='+foo;
+          }
+        }
+        function setAllStorageLocations(reset=false) {
+          setCookies(reset);
+          setLocalStorage(reset);
+          setSessionStorage(reset);
+          setIndexedDB(reset);
+        }
+        setAllStorageLocations(false);
+      </script>
+    </body>
+</html>
