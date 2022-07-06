@@ -23,7 +23,7 @@
           var randVal = Math.random();
           var set = document.getElementById('cookie_set');
           set.innerHTML = randVal;
-          document.cookie = 'testPageCookie='+randVal;
+          document.cookie = 'testPageCookie='+randVal+'; SameSite=None';
 
           // Get a cookie
           var get = document.getElementById('cookie_read');
